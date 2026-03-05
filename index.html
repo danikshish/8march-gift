@@ -818,17 +818,38 @@
                 background-size: 280px 280px;
             }
 
-            .puzzle-kiss {
-                font-size: 80px;
+            .puzzle-title {
+                text-align: center;
+            }
+            
+            /* Коллаж адаптированный */
+            .collage {
+                width: 340px;
+                height: 340px;
             }
 
-            .puzzle-complete-content {
-                padding: 30px 20px;
-                width: 90%;
+            .collage-border {
+                width: 310px;
+                height: 310px;
             }
 
-            .puzzle-complete-text {
-                font-size: 1.4em;
+            .collage-photo.center {
+                width: 110px;
+                height: 110px;
+            }
+
+            .collage-photo.outer {
+                width: 75px;
+                height: 75px;
+            }
+
+            .collage-heart {
+                font-size: 1em;
+            }
+            
+            /* Сердечки адаптированные */
+            .collage-heart {
+                font-size: 0.9em;
             }
             
             /* Убираем размытие на мобильных */
@@ -856,6 +877,20 @@
 
             .flower-message p {
                 font-size: 0.95em;
+            }
+            
+            /* Пазл адаптированный */
+            .puzzle-kiss {
+                font-size: 80px;
+            }
+
+            .puzzle-complete-content {
+                padding: 30px 20px;
+                width: 90%;
+            }
+
+            .puzzle-complete-text {
+                font-size: 1.4em;
             }
         }
 
@@ -1308,9 +1343,11 @@
                     container.appendChild(photo);
                 });
                 
-                // Добавляем сердечки по кругу (между фото)
-                const heartAngles = [0, 45, 90, 135, 180, 225, 270, 315];
-                const heartRadius = radius + 35; // Сердечки чуть дальше фото
+                // Добавляем сердечки между фото
+                // 8 сердечек - по одному между каждой парой соседних фото
+                const heartAngles = [22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5];
+                // Радиус для сердечек адаптируется под размер контейнера
+                const heartRadius = Math.min(containerWidth, containerHeight) / 2 - 20;
                 
                 heartAngles.forEach((angle, index) => {
                     const heart = document.createElement('div');
