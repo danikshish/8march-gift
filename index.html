@@ -5,8 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>С 8 Марта! 💐</title>
     <style>
+        /* Убираем размытие на iOS */
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -490,14 +498,18 @@
             cursor: pointer;
             border: 5px solid white;
             background: white;
-            transform: translate(-50%, -50%);
-            backface-visibility: hidden;
+            will-change: transform;
+            -webkit-transform: translate3d(-50%, -50%, 0);
+            transform: translate3d(-50%, -50%, 0);
             -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
         }
 
         .collage-photo:hover {
-            transform: translate(-50%, -50%) scale(1.15);
+            -webkit-transform: translate3d(-50%, -50%, 0) scale(1.15);
+            transform: translate3d(-50%, -50%, 0) scale(1.15);
             box-shadow: 0 10px 35px rgba(233, 30, 99, 0.4);
             z-index: 100;
         }
@@ -508,8 +520,10 @@
             object-fit: cover;
             object-position: center;
             display: block;
-            image-rendering: -webkit-optimize-contrast;
-            image-rendering: crisp-edges;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
         .collage-photo.center {
@@ -639,8 +653,15 @@
             
             /* Убираем размытие на мобильных */
             .collage-photo {
-                transform: translate(-50%, -50%) !important;
-                -webkit-transform: translate(-50%, -50%) !important;
+                -webkit-transform: translate3d(-50%, -50%, 0) !important;
+                transform: translate3d(-50%, -50%, 0) !important;
+                -webkit-backface-visibility: hidden !important;
+                backface-visibility: hidden !important;
+            }
+            
+            .collage-photo img {
+                -webkit-transform: translateZ(0) !important;
+                transform: translateZ(0) !important;
             }
 
             /* Модальное окно меньше */
@@ -774,7 +795,7 @@
     <script>
         // Лепестки роз
         function createPetals() {
-            const petalCount = 50;
+            const petalCount = 20;
             console.log('Создаю лепестки...');
             
             for (let i = 0; i < petalCount; i++) {
@@ -783,7 +804,7 @@
                     petal.className = 'petal';
 
                     // Случайный размер
-                    const size = Math.random() * 20 + 15;
+                    const size = Math.random() * 15 + 10;
                     petal.style.width = size + 'px';
                     petal.style.height = size + 'px';
 
@@ -805,7 +826,7 @@
                         petal.remove();
                         console.log('Лепесток удалён');
                     }, duration * 1000 + 1000);
-                }, i * 100);
+                }, i * 150);
             }
         }
 
@@ -933,7 +954,8 @@
             centerPhoto.style.left = '50%';
             centerPhoto.style.opacity = '0';
             centerPhoto.style.animation = 'fadeIn 0.5s ease forwards 0.1s';
-            centerPhoto.style.webkitTransform = 'translate(-50%, -50%)';
+            centerPhoto.style.webkitTransform = 'translate3d(-50%, -50%, 0)';
+            centerPhoto.style.transform = 'translate3d(-50%, -50%, 0)';
             container.appendChild(centerPhoto);
 
             // Фото по кругу (8 фото)
@@ -955,7 +977,8 @@
                 photo.style.top = y + 'px';
                 photo.style.opacity = '0';
                 photo.style.animation = `fadeIn 0.5s ease forwards ${0.3 + index * 0.1}s`;
-                photo.style.webkitTransform = 'translate(-50%, -50%)';
+                photo.style.webkitTransform = 'translate3d(-50%, -50%, 0)';
+                photo.style.transform = 'translate3d(-50%, -50%, 0)';
 
                 container.appendChild(photo);
             });
