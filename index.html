@@ -998,15 +998,17 @@
                     container.appendChild(photo);
                 });
                 
-                // Добавляем сердечки по кругу
+                // Добавляем сердечки по кругу (между фото)
                 const heartAngles = [22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5];
+                const heartRadius = radius + 25; // Сердечки чуть дальше фото
+                
                 heartAngles.forEach((angle, index) => {
                     const heart = document.createElement('div');
                     heart.className = 'collage-heart';
                     heart.textContent = '💕';
                     const rad = (angle - 90) * Math.PI / 180;
-                    const x = centerX + radius * Math.cos(rad);
-                    const y = centerY + radius * Math.sin(rad);
+                    const x = centerX + heartRadius * Math.cos(rad);
+                    const y = centerY + heartRadius * Math.sin(rad);
                     heart.style.left = x + 'px';
                     heart.style.top = y + 'px';
                     heart.style.webkitTransform = 'translate3d(-50%, -50%, 0)';
