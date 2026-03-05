@@ -190,6 +190,7 @@
             font-size: 1.5em;
             margin-bottom: 15px;
             font-weight: 600;
+            display: inline-block;
         }
 
         .puzzle-subtitle {
@@ -921,7 +922,9 @@
         <!-- Пазл с фото -->
         <div class="card">
             <div class="puzzle-section">
-                <h2 class="puzzle-title">🧩 Собери фото</h2>
+                <div style="text-align: center;">
+                    <h2 class="puzzle-title">🧩 Собери фото</h2>
+                </div>
                 <p class="puzzle-subtitle">Нажимай на кусочки рядом с пустым местом</p>
                 <div class="puzzle-container">
                     <div class="puzzle-grid" id="puzzleGrid">
@@ -1306,8 +1309,8 @@
                 });
                 
                 // Добавляем сердечки по кругу (между фото)
-                const heartAngles = [22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5];
-                const heartRadius = radius + 25; // Сердечки чуть дальше фото
+                const heartAngles = [0, 45, 90, 135, 180, 225, 270, 315];
+                const heartRadius = radius + 35; // Сердечки чуть дальше фото
                 
                 heartAngles.forEach((angle, index) => {
                     const heart = document.createElement('div');
