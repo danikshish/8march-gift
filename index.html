@@ -971,8 +971,8 @@
                 // Фото по кругу (8 фото)
                 const outerPhotos = photos.slice(1);
                 const angles = [0, 45, 90, 135, 180, 225, 270, 315];
-                // Радиус адаптируется под размер контейнера
-                const radius = Math.min(containerWidth, containerHeight) / 2 - 70;
+                // Радиус адаптируется под размер контейнера (увеличенный)
+                const radius = Math.min(containerWidth, containerHeight) / 2 - 40;
                 
                 console.log('Радиус:', radius);
 
