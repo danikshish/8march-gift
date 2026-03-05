@@ -490,10 +490,14 @@
             cursor: pointer;
             border: 5px solid white;
             background: white;
+            transform: translate(-50%, -50%);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transform-style: preserve-3d;
         }
 
         .collage-photo:hover {
-            transform: scale(1.15);
+            transform: translate(-50%, -50%) scale(1.15);
             box-shadow: 0 10px 35px rgba(233, 30, 99, 0.4);
             z-index: 100;
         }
@@ -501,8 +505,11 @@
         .collage-photo img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
+            object-position: center;
             display: block;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
         }
 
         .collage-photo.center {
@@ -628,6 +635,12 @@
 
             .collage-heart {
                 font-size: 1em;
+            }
+            
+            /* Убираем размытие на мобильных */
+            .collage-photo {
+                transform: translate(-50%, -50%) !important;
+                -webkit-transform: translate(-50%, -50%) !important;
             }
 
             /* Модальное окно меньше */
@@ -906,44 +919,44 @@
 
         function createCollage() {
             const container = document.getElementById('collage');
-            
+
             // Добавляем декоративную рамку
             const border = document.createElement('div');
             border.className = 'collage-border';
             container.appendChild(border);
-            
+
             // Центральное фото
             const centerPhoto = document.createElement('div');
             centerPhoto.className = 'collage-photo center';
             centerPhoto.innerHTML = `<img src="${photos[0]}" alt="Фото 1" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 180%22><rect fill=%22%23ffecd2%22 width=%22180%22 height=%22180%22/><text x=%2290%22 y=%2295%22 text-anchor=%22middle%22 fill=%22%23fcb69f%22 font-size=%2260%22>📷</text></svg>'">`;
             centerPhoto.style.top = '50%';
             centerPhoto.style.left = '50%';
-            centerPhoto.style.transform = 'translate(-50%, -50%)';
             centerPhoto.style.opacity = '0';
             centerPhoto.style.animation = 'fadeIn 0.5s ease forwards 0.1s';
+            centerPhoto.style.webkitTransform = 'translate(-50%, -50%)';
             container.appendChild(centerPhoto);
-            
+
             // Фото по кругу (8 фото)
             const outerPhotos = photos.slice(1);
             const angles = [0, 45, 90, 135, 180, 225, 270, 315];
             const radius = 200; // Радиус круга
-            
+
             outerPhotos.forEach((src, index) => {
                 const photo = document.createElement('div');
                 photo.className = 'collage-photo outer';
                 photo.innerHTML = `<img src="${src}" alt="Фото ${index + 2}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 120%22><rect fill=%22%23ffecd2%22 width=%22120%22 height=%22120%22/><text x=%2260%22 y=%2265%22 text-anchor=%22middle%22 fill=%22%23fcb69f%22 font-size=%2240%22>📷</text></svg>'">`;
-                
+
                 // Вычисляем позицию по кругу
                 const angle = (angles[index] - 90) * Math.PI / 180; // -90 чтобы начать сверху
                 const x = 260 + radius * Math.cos(angle); // 260 = половина ширины контейнера
                 const y = 260 + radius * Math.sin(angle);
-                
+
                 photo.style.left = x + 'px';
                 photo.style.top = y + 'px';
-                photo.style.transform = 'translate(-50%, -50%)';
                 photo.style.opacity = '0';
                 photo.style.animation = `fadeIn 0.5s ease forwards ${0.3 + index * 0.1}s`;
-                
+                photo.style.webkitTransform = 'translate(-50%, -50%)';
+
                 container.appendChild(photo);
             });
             
