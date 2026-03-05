@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>С 8 Марта! 💐</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 50%, #ffecd2 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Плавающие сердечки на фоне */
+        body::before {
+            content: '💕 💖 💗 💓 💞';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.1;
+            font-size: 2em;
+            letter-spacing: 100px;
+            word-spacing: 50px;
+            animation: floatBg 20s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes floatBg {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* Конфетти */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+            z-index: 1000;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+
+        /* Лепестки роз */
+        .petal {
+            position: fixed;
+            background: linear-gradient(135deg, #ff6b8a 0%, #ff8fa3 50%, #ffb3c1 100%);
+            border-radius: 100% 0 100% 0;
+            animation: petalFall linear forwards;
+            z-index: 999;
+            pointer-events: none;
+            box-shadow: 0 2px 5px rgba(255, 107, 138, 0.3);
+        }
+
+        @keyframes petalFall {
+            0% {
+                opacity: 1;
+                transform: translateY(-10vh) rotate(0deg) translateX(0);
+            }
+            25% {
+                transform: translateY(25vh) rotate(90deg) translateX(50px);
+            }
+            50% {
+                transform: translateY(50vh) rotate(180deg) translateX(-50px);
+            }
+            75% {
+                transform: translateY(75vh) rotate(270deg) translateX(50px);
+            }
+            100% {
+                opacity: 0.3;
+                transform: translateY(100vh) rotate(360deg) translateX(-50px);
+            }
+        }
+
+        /* Счётчик времени вместе */
+        .timer-section {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(233, 30, 99, 0.1), rgba(240, 98, 146, 0.1));
+            border-radius: 20px;
+            margin: 20px 0;
+        }
+
+        .timer-title {
+            color: #e91e63;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .timer-item {
+            background: linear-gradient(135deg, #e91e63, #f06292);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 80px;
+            box-shadow: 0 5px 20px rgba(233, 30, 99, 0.3);
+            animation: timerPulse 2s ease-in-out infinite;
+        }
+
+        .timer-item:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .timer-item:nth-child(3) {
+            animation-delay: 1s;
+        }
+
+        .timer-item:nth-child(4) {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes timerPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .timer-value {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+
+        .timer-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .timer-heart {
+            font-size: 1.5em;
+            animation: heartbeat 1s ease infinite;
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Заголовок */
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+            animation: bounce 1s ease;
+            position: relative;
+        }
+
+        .header::before,
+        .header::after {
+            content: '🌸';
+            position: absolute;
+            font-size: 2em;
+            top: 50%;
+            animation: spin 3s linear infinite;
+        }
+
+        .header::before {
+            left: 20px;
+        }
+
+        .header::after {
+            right: 20px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .header h1 {
+            font-size: 2.8em;
+            background: linear-gradient(45deg, #e91e63, #f06292, #e91e63);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 3s linear infinite;
+            text-shadow: none;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        @keyframes shimmer {
+            to { background-position: 200% center; }
+        }
+
+        .header .subtitle {
+            font-size: 1.3em;
+            color: #c2185b;
+            font-weight: 500;
+        }
+
+        /* Карточки */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 35px;
+            margin: 30px 0;
+            box-shadow: 0 15px 40px rgba(233, 30, 99, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #e91e63, #f06292, #ff4081, #f06292, #e91e63);
+            background-size: 200% 100%;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            to { background-position: 200% 0; }
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(233, 30, 99, 0.25);
+        }
+
+        .card h2 {
+            color: #e91e63;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 2em;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .card h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #f06292, transparent);
+            border-radius: 2px;
+        }
+
+        /* Виртуальный букет */
+        .bouquet {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .flower {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            position: relative;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.2));
+        }
+
+        .flower:hover {
+            transform: scale(1.15) rotate(10deg);
+            filter: drop-shadow(0 10px 20px rgba(233, 30, 99, 0.4));
+        }
+
+        .flower svg {
+            width: 80px;
+            height: 120px;
+        }
+
+        .flower-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 0 15px 60px rgba(0,0,0,0.3);
+            z-index: 2000;
+            text-align: center;
+            display: none;
+            max-width: 90%;
+            width: 380px;
+            border: 3px solid #ffc1e3;
+            animation: modalPop 0.3s ease;
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+
+        .flower-message h3 {
+            color: #e91e63;
+            margin-bottom: 15px;
+            font-size: 2.5em;
+        }
+
+        .flower-message p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.05em;
+        }
+
+        .flower-message button {
+            margin-top: 25px;
+            padding: 12px 40px;
+            background: linear-gradient(45deg, #e91e63, #f06292);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .flower-message button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 30, 99, 0.4);
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+            display: none;
+        }
+
+        /* Polaroid галерея */
+        .polaroid-container {
+            position: relative;
+            height: 500px;
+            margin: 20px 0;
+            perspective: 1000px;
+        }
+
+        .polaroid {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            max-width: 320px;
+        }
+
+        .polaroid:hover {
+            transform: translate(-50%, -60%) scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            z-index: 100 !important;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 3px;
+        }
+
+        .polaroid.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .polaroid.prev {
+            transform: translate(-150%, -50%) rotate(-15deg) scale(0.8);
+            z-index: 1;
+        }
+
+        .polaroid.next {
+            transform: translate(50%, -50%) rotate(15deg) scale(0.8);
+            z-index: 1;
+        }
+
+        .gallery-nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .gallery-nav button {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #e91e63;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+        }
+
+        .gallery-nav button:hover {
+            background: #c2185b;
+            transform: scale(1.1);
+        }
+
+        /* Коллаж - круговая композиция */
+        .collage-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .collage {
+            position: relative;
+            width: 520px;
+            height: 520px;
+            margin: 20px auto;
+        }
+
+        .collage-photo {
+            position: absolute;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 5px solid white;
+            background: white;
+        }
+
+        .collage-photo:hover {
+            transform: scale(1.15);
+            box-shadow: 0 10px 35px rgba(233, 30, 99, 0.4);
+            z-index: 100;
+        }
+
+        .collage-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .collage-photo.center {
+            width: 180px;
+            height: 180px;
+            z-index: 10;
+        }
+
+        .collage-photo.outer {
+            width: 120px;
+            height: 120px;
+        }
+
+        /* Декоративная рамка вокруг коллажа */
+        .collage-border {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 480px;
+            height: 480px;
+            border: 3px dashed #ffc1e3;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: rotate 30s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Сердечки по кругу */
+        .collage-heart {
+            position: absolute;
+            font-size: 1.5em;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px 12px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .header .subtitle {
+                font-size: 1.1em;
+            }
+
+            .header::before,
+            .header::after {
+                display: none;
+            }
+
+            .card {
+                padding: 25px 18px;
+                margin: 20px 0;
+            }
+
+            .card h2 {
+                font-size: 1.5em;
+            }
+
+            /* Цветы меньше на мобильном */
+            .bouquet {
+                gap: 10px;
+            }
+
+            .flower svg {
+                width: 60px;
+                height: 90px;
+            }
+
+            /* Таймер адаптированный */
+            .timer-item {
+                padding: 15px;
+                min-width: 65px;
+            }
+
+            .timer-value {
+                font-size: 1.5em;
+            }
+
+            .timer-label {
+                font-size: 0.75em;
+            }
+
+            /* Коллаж адаптированный */
+            .collage {
+                width: 340px;
+                height: 340px;
+            }
+
+            .collage-border {
+                width: 310px;
+                height: 310px;
+            }
+
+            .collage-photo.center {
+                width: 110px;
+                height: 110px;
+            }
+
+            .collage-photo.outer {
+                width: 75px;
+                height: 75px;
+            }
+
+            .collage-heart {
+                font-size: 1em;
+            }
+
+            /* Модальное окно меньше */
+            .flower-message {
+                padding: 25px;
+                width: 90%;
+            }
+
+            .flower-message h3 {
+                font-size: 2em;
+            }
+
+            .flower-message p {
+                font-size: 0.95em;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: #c2185b;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            margin-top: 30px;
+            backdrop-filter: blur(5px);
+        }
+
+        .heart {
+            display: inline-block;
+            animation: heartbeat 1.5s ease infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Заголовок -->
+        <div class="header">
+            <h1>💖 С 8 Марта! 💖</h1>
+            <p class="subtitle">Этот день — только для тебя!</p>
+        </div>
+
+        <!-- Счётчик времени вместе -->
+        <div class="card">
+            <div class="timer-section">
+                <div class="timer-title">
+                    <span class="timer-heart">💕</span>
+                    Мы вместе уже
+                    <span class="timer-heart">💕</span>
+                </div>
+                <div class="timer" id="timer">
+                    <div class="timer-item">
+                        <span class="timer-value" id="days">0</span>
+                        <span class="timer-label">дней</span>
+                    </div>
+                    <div class="timer-item">
+                        <span class="timer-value" id="hours">0</span>
+                        <span class="timer-label">часов</span>
+                    </div>
+                    <div class="timer-item">
+                        <span class="timer-value" id="minutes">0</span>
+                        <span class="timer-label">минут</span>
+                    </div>
+                    <div class="timer-item">
+                        <span class="timer-value" id="seconds">0</span>
+                        <span class="timer-label">секунд</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Поздравление -->
+        <div class="card">
+            <h2>🌸 Моё поздравление 🌸</h2>
+            <p style="text-align: center; line-height: 1.8; color: #555;">
+                Ты — самое прекрасное, что есть в моей жизни!<br>
+                Твоя улыбка освещает каждый мой день,<br>
+                а твои глаза ярче любых звёзд.<br>
+                <br>
+                Желаю тебе всегда сиять,<br>
+                мечтать и воплощать мечты в реальность!<br>
+                <br>
+                <strong>Я тебя очень ценю и люблю!</strong> 💕
+            </p>
+        </div>
+
+        <!-- Виртуальный букет -->
+        <div class="card">
+            <h2>💐 Виртуальный букет для тебя</h2>
+            <p style="text-align: center; color: #666; margin-bottom: 20px;">
+                Нажми на цветок, чтобы получить послание
+            </p>
+            <div class="bouquet" id="bouquet">
+                <!-- Цветы будут добавлены через JS -->
+            </div>
+        </div>
+
+        <!-- Коллаж из фото -->
+        <div class="card">
+            <h2 style="text-align: center; color: #e91e63; margin-bottom: 10px;">💕 Наши воспоминания 💕</h2>
+            <p style="text-align: center; color: #888; margin-bottom: 30px; font-size: 1em;">
+                Каждое фото — часть нашего большого сердца
+            </p>
+            <div class="collage-container">
+                <div class="collage" id="collage">
+                    <!-- Фото будут добавлены через JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>Сделано с <span class="heart">💖</span> специально для тебя</p>
+        </div>
+    </div>
+
+    <!-- Модальное окно для цветка -->
+    <div class="overlay" id="overlay" onclick="closeMessage()"></div>
+    <div class="flower-message" id="flowerMessage">
+        <h3 id="messageTitle">🌷</h3>
+        <p id="messageText"></p>
+        <button onclick="closeMessage()">Спасибо! 💕</button>
+    </div>
+
+    <script>
+        // Лепестки роз
+        function createPetals() {
+            const petalCount = 50;
+            console.log('Создаю лепестки...');
+            
+            for (let i = 0; i < petalCount; i++) {
+                setTimeout(() => {
+                    const petal = document.createElement('div');
+                    petal.className = 'petal';
+
+                    // Случайный размер
+                    const size = Math.random() * 20 + 15;
+                    petal.style.width = size + 'px';
+                    petal.style.height = size + 'px';
+
+                    // Случайная позиция по всему экрану
+                    petal.style.left = Math.random() * 100 + 'vw';
+                    
+                    // Случайная начальная позиция сверху
+                    petal.style.top = (Math.random() * -20 - 10) + 'vh';
+
+                    // Случайная длительность падения
+                    const duration = Math.random() * 5 + 5;
+                    petal.style.animationDuration = duration + 's';
+
+                    document.body.appendChild(petal);
+                    console.log('Лепесток создан', i + 1);
+
+                    // Удаляем лепесток после падения
+                    setTimeout(() => {
+                        petal.remove();
+                        console.log('Лепесток удалён');
+                    }, duration * 1000 + 1000);
+                }, i * 100);
+            }
+        }
+
+        // Запускаем лепестки только первые 5 секунд после загрузки
+        function startPetalShower() {
+            console.log('Запуск лепестков на 5 секунд!');
+            createPetals(); // Сразу при загрузке
+            
+            // Создаём ещё несколько волн в течение 5 секунд
+            setTimeout(createPetals, 1000);
+            setTimeout(createPetals, 2000);
+            setTimeout(createPetals, 3000);
+            setTimeout(createPetals, 4000);
+            // На 5 секунде прекращаем
+        }
+
+        // Таймер отношений
+        function updateTimer() {
+            // Дата начала отношений: 6 июля 2024, 2 часа ночи
+            const startDate = new Date('2024-07-06T02:00:00');
+            const now = new Date();
+            const diff = now - startDate;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+        }
+
+        // Конфетти
+        function createConfetti() {
+            const colors = ['#e91e63', '#f06292', '#ff4081', '#ffd700', '#ff6b6b', '#c2185b'];
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + 'vw';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 5000);
+                }, i * 100);
+            }
+        }
+
+        // Цветы с посланиями
+        const flowerMessages = [
+            { title: '🌹', text: 'Ты прекрасна, как этот цветок! Пусть каждый твой день будет наполнен радостью и любовью.' },
+            { title: '🌷', text: 'Ты — моё весеннее настроение! Спасибо, что делаешь мою жизнь ярче.' },
+            { title: '🌺', text: 'Твоя красота восхищает меня каждый день. Ты — настоящее чудо!' },
+            { title: '🌻', text: 'Ты — моё солнышко! Даже в пасмурный день твоя улыбка согревает меня.' },
+            { title: '🌸', text: 'Нежная, как этот цветок. Я бесконечно благодарен судьбе за тебя.' },
+            { title: '💮', text: 'Ты уникальна и неповторима. Именно такой я тебя и люблю!' }
+        ];
+
+        function createFlowers() {
+            const bouquet = document.getElementById('bouquet');
+            const flowerColors = ['#e91e63', '#f06292', '#ff4081', '#ff6b6b', '#c2185b', '#d81b60'];
+            
+            flowerMessages.forEach((msg, index) => {
+                const flower = document.createElement('div');
+                flower.className = 'flower';
+                flower.innerHTML = `
+                    <svg viewBox="0 0 100 150">
+                        <ellipse cx="50" cy="40" rx="25" ry="30" fill="${flowerColors[index]}" opacity="0.9"/>
+                        <ellipse cx="35" cy="35" rx="20" ry="25" fill="${flowerColors[index]}" opacity="0.8"/>
+                        <ellipse cx="65" cy="35" rx="20" ry="25" fill="${flowerColors[index]}" opacity="0.8"/>
+                        <ellipse cx="50" cy="30" rx="20" ry="25" fill="${flowerColors[index]}" opacity="0.85"/>
+                        <ellipse cx="40" cy="45" rx="18" ry="22" fill="${flowerColors[index]}" opacity="0.7"/>
+                        <ellipse cx="60" cy="45" rx="18" ry="22" fill="${flowerColors[index]}" opacity="0.7"/>
+                        <rect x="47" y="65" width="6" height="60" fill="#4CAF50" rx="3"/>
+                        <ellipse cx="30" cy="90" rx="15" ry="8" fill="#4CAF50" opacity="0.8"/>
+                        <ellipse cx="70" cy="85" rx="15" ry="8" fill="#4CAF50" opacity="0.8"/>
+                    </svg>
+                `;
+                flower.onclick = () => showMessage(msg);
+                bouquet.appendChild(flower);
+            });
+        }
+
+        function showMessage(message) {
+            document.getElementById('messageTitle').textContent = message.title;
+            document.getElementById('messageText').textContent = message.text;
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('flowerMessage').style.display = 'block';
+        }
+
+        function closeMessage() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('flowerMessage').style.display = 'none';
+        }
+
+        // Коллаж из фото - круговая композиция
+        const photos = [
+            'photos/5282822526297904587.jpg',
+            'photos/5282822526297904588.jpg',
+            'photos/5282822526297904589.jpg',
+            'photos/5282822526297904590.jpg',
+            'photos/5282822526297904591.jpg',
+            'photos/5282822526297904592.jpg',
+            'photos/5282822526297904593.jpg',
+            'photos/5282822526297904594.jpg',
+            'photos/5282822526297904595.jpg'
+        ];
+
+        function createCollage() {
+            const container = document.getElementById('collage');
+            
+            // Добавляем декоративную рамку
+            const border = document.createElement('div');
+            border.className = 'collage-border';
+            container.appendChild(border);
+            
+            // Центральное фото
+            const centerPhoto = document.createElement('div');
+            centerPhoto.className = 'collage-photo center';
+            centerPhoto.innerHTML = `<img src="${photos[0]}" alt="Фото 1" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 180 180%22><rect fill=%22%23ffecd2%22 width=%22180%22 height=%22180%22/><text x=%2290%22 y=%2295%22 text-anchor=%22middle%22 fill=%22%23fcb69f%22 font-size=%2260%22>📷</text></svg>'">`;
+            centerPhoto.style.top = '50%';
+            centerPhoto.style.left = '50%';
+            centerPhoto.style.transform = 'translate(-50%, -50%)';
+            centerPhoto.style.opacity = '0';
+            centerPhoto.style.animation = 'fadeIn 0.5s ease forwards 0.1s';
+            container.appendChild(centerPhoto);
+            
+            // Фото по кругу (8 фото)
+            const outerPhotos = photos.slice(1);
+            const angles = [0, 45, 90, 135, 180, 225, 270, 315];
+            const radius = 200; // Радиус круга
+            
+            outerPhotos.forEach((src, index) => {
+                const photo = document.createElement('div');
+                photo.className = 'collage-photo outer';
+                photo.innerHTML = `<img src="${src}" alt="Фото ${index + 2}" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 120 120%22><rect fill=%22%23ffecd2%22 width=%22120%22 height=%22120%22/><text x=%2260%22 y=%2265%22 text-anchor=%22middle%22 fill=%22%23fcb69f%22 font-size=%2240%22>📷</text></svg>'">`;
+                
+                // Вычисляем позицию по кругу
+                const angle = (angles[index] - 90) * Math.PI / 180; // -90 чтобы начать сверху
+                const x = 260 + radius * Math.cos(angle); // 260 = половина ширины контейнера
+                const y = 260 + radius * Math.sin(angle);
+                
+                photo.style.left = x + 'px';
+                photo.style.top = y + 'px';
+                photo.style.transform = 'translate(-50%, -50%)';
+                photo.style.opacity = '0';
+                photo.style.animation = `fadeIn 0.5s ease forwards ${0.3 + index * 0.1}s`;
+                
+                container.appendChild(photo);
+            });
+            
+            // Добавляем сердечки по кругу
+            const heartAngles = [22.5, 67.5, 112.5, 157.5, 202.5, 247.5, 292.5, 337.5];
+            heartAngles.forEach((angle, index) => {
+                const heart = document.createElement('div');
+                heart.className = 'collage-heart';
+                heart.textContent = '💕';
+                const rad = (angle - 90) * Math.PI / 180;
+                const x = 260 + radius * Math.cos(rad);
+                const y = 260 + radius * Math.sin(rad);
+                heart.style.left = x + 'px';
+                heart.style.top = y + 'px';
+                heart.style.transform = 'translate(-50%, -50%)';
+                heart.style.animationDelay = `${index * 0.15}s`;
+                container.appendChild(heart);
+            });
+        }
+
+        // Запуск
+        window.onload = () => {
+            createFlowers();
+            createCollage();
+            createConfetti();
+            startPetalShower();
+            updateTimer();
+            setInterval(updateTimer, 1000);
+        };
+    </script>
+</body>
+</html>
